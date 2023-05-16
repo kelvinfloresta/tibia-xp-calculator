@@ -1,17 +1,19 @@
-const { printTable } = require("console-table-printer");
-const { bonusHours, scenarios } = require("./scenarios.json")
-const rawXpSoloPerHour = 5;
-const rawXpPartyPerHour = 9;
+const {
+  scenarios,
+  rawXpPartyPerHour,
+  rawXpSoloPerHour,
+  xpMultiplier,
+} = require("./scenarios");
 
-const xpMultiplier = 1.5;
+const { printTable } = require("console-table-printer");
+const { format, chain, multiply, subtract, add } = require("mathjs");
 
 function calculateFullXP({ rawXpPerhour, huntingHours, bonusHours }) {
-	if (huntingHours === 0) {
-  	return { normal: 0, bonus: 0, total: 0 };
-	}
+  if (huntingHours === 0) {
+    return { normal: 0, bonus: 0, total: 0 };
+  }
 
-  const normalHours = huntingHours - bonusHours;
-
+  const normalHours = subtract(huntingHours, bonusHours);
   const normal = calculateXP({
     huntingHours: normalHours,
     rawXpPerhour,
@@ -21,17 +23,21 @@ function calculateFullXP({ rawXpPerhour, huntingHours, bonusHours }) {
   const bonus = calculateXP({
     huntingHours: bonusHours,
     rawXpPerhour,
-    multiplier: xpMultiplier * 1.5,
+    multiplier: multiply(xpMultiplier, 1.5),
   });
 
-  return { normal, bonus, total: normal + bonus };
+  const total = +format(add(normal, bonus), { precision: 10 });
+
+  return { normal, bonus, total };
 }
 
 function calculateXP({ huntingHours, rawXpPerhour, multiplier }) {
-  return huntingHours * rawXpPerhour * multiplier;
+  return +format(multiply(huntingHours, rawXpPerhour, multiplier), {
+    precision: 10,
+  });
 }
 
-function format({ solo, party, total, description }) {
+function formatKK({ solo, party, total, description }) {
   return {
     description,
     Solo: solo + " kk",
@@ -41,30 +47,35 @@ function format({ solo, party, total, description }) {
 }
 
 function print(scenarios) {
-  const data = scenarios.sort((a, b) => b.total - a.total).map(format);
+  const data = scenarios.sort((a, b) => b.total - a.total).map(formatKK);
 
+  console.log(`\n\n`);
+  console.log(`XP/h PT: ${rawXpPartyPerHour}kk`);
+  console.log(`XP/h Solo: ${rawXpSoloPerHour}kk`);
+  console.log(`\n`);
   printTable(data);
+  console.log(`\n\n`);
 }
 
-function split({ hoursSolo, hoursParty }) {
+function split({ hoursSolo, hoursParty, bonusHoursParty, bonusHoursSolo }) {
   const { total: soloTotal } = calculateFullXP({
     rawXpPerhour: rawXpSoloPerHour,
-    bonusHours: 0,
+    bonusHours: bonusHoursSolo,
     huntingHours: hoursSolo,
   });
 
   const { total: partyTotal } = calculateFullXP({
     rawXpPerhour: rawXpPartyPerHour,
-    bonusHours: bonusHours,
+    bonusHours: bonusHoursParty,
     huntingHours: hoursParty,
   });
 
-	const description = `${hoursSolo} Solo + ${hoursParty} Party`
+  const description = `${hoursSolo} horas solo + ${hoursParty} horas PT`;
 
   return {
     party: partyTotal,
     solo: soloTotal,
-    total: soloTotal + partyTotal,
+    total: add(soloTotal, partyTotal),
     description,
   };
 }
