@@ -6,7 +6,7 @@ const {
 } = require("./scenarios");
 
 const { printTable } = require("console-table-printer");
-const { format, chain, multiply, subtract, add } = require("mathjs");
+const { format, multiply, subtract, add } = require("mathjs");
 
 function calculateFullXP({ rawXpPerhour, huntingHours, bonusHours }) {
   if (huntingHours === 0) {
