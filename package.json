@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "console-table-printer": "^2.11.1"
+    "console-table-printer": "^2.11.1",
+    "nodemon": "^2.0.22"
   }
 }
