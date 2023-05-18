@@ -154,7 +154,7 @@ function App() {
 					<Space size={64} direction="horizontal">
 						<div>
 							<Form.Item label="Raw XP/h" name="rawXpSoloPerHour">
-								<Input name="rawXpSoloPerHour" addonBefore="Solo" />
+								<Input name="rawXpSoloPerHour" addonBefore="Solo" inputMode='numeric' />
 							</Form.Item>
 							<Form.Item
 								label="Horas de hunt?"
@@ -184,7 +184,7 @@ function App() {
 
 						<div>
 							<Form.Item label="Raw XP/h" name="rawXpPartyPerHour">
-								<Input name="rawXpPartyPerHour" addonBefore="Party" />
+								<Input name="rawXpPartyPerHour" addonBefore="Party" inputMode='numeric' />
 							</Form.Item>
 
 							<Form.Item
