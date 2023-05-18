@@ -100,7 +100,7 @@ function App() {
 								label="Horas stamina verde?"
 								tooltip={
 									<>
-										Preencha aqui quantas horas de stamina pretende caçar.
+										Preencha aqui quantas horas de stamina verde pretende caçar.
 										<br /> <br />
 										Ex: caso tenha{' '}
 										<Typography.Text type="warning">
