@@ -112,7 +112,7 @@ function App() {
 								rules={[
 									{
 										validator: async () => {
-											if (!form.huntHours) {
+											if (!form.huntHours || !form.bonusHours) {
 												return;
 											}
 
@@ -121,7 +121,8 @@ function App() {
 												return;
 											}
 
-											if (huntHours >= form.bonusHours) {
+											const bonusHours = +form.huntHours.replaceAll(',', '.');
+											if (huntHours >= bonusHours) {
 												return;
 											}
 
