@@ -5,9 +5,10 @@ import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
 
 import styled from 'styled-components';
-import { Space, Table, Typography } from 'antd';
+import { Button, Space, Table, Typography } from 'antd';
 import { HuntCalculator } from './logic/HuntCalculator';
 import Column from 'antd/es/table/Column';
+import { useForm } from 'antd/lib/form/Form';
 
 const Background = styled.div`
 	padding-top: 10vh;
@@ -29,11 +30,18 @@ function render(e: any) {
 function App() {
 	const [form, setForm] = useState<any>({});
 	const [calculator, setCalculator] = useState<HuntCalculator | null>(null);
+	const [antdForm] = useForm();
+
+	useEffect(() => {
+		console.log(form);
+
+		antdForm.setFieldsValue(form);
+	}, [antdForm, form]);
 
 	useEffect(() => {
 		const calculator = new HuntCalculator(
-			form.rawXpPartyPerHour?.replaceAll(",", "."),
-			form.rawXpSoloPerHour?.replaceAll(",", "."),
+			form.rawXpPartyPerHour?.replaceAll(',', '.'),
+			form.rawXpSoloPerHour?.replaceAll(',', '.'),
 		);
 		setCalculator(calculator);
 	}, [form.rawXpPartyPerHour, form.rawXpSoloPerHour]);
@@ -43,17 +51,18 @@ function App() {
 		setForm(newForm);
 	}
 
-
 	const result = useMemo(() => {
 		const result = calculator?.calculate({
-			hoursSolo: form.huntHours?.replaceAll(",", "."),
-			hoursParty: form.huntHours?.replaceAll(",", "."),
-			bonusHoursParty: form.bonusHours?.replaceAll(",", ".") || 0,
-			bonusHoursSolo: form.bonusHours?.replaceAll(",", ".") || 0,
+			hoursSolo: form.huntHours?.replaceAll(',', '.'),
+			hoursParty: form.huntHours?.replaceAll(',', '.'),
+			bonusHoursParty: form.bonusHours?.replaceAll(',', '.') || 0,
+			bonusHoursSolo: form.bonusHours?.replaceAll(',', '.') || 0,
 		});
 
-		return result || {}
-	}, [calculator, form.bonusHours, form.huntHours])
+		return result || {};
+	}, [calculator, form.bonusHours, form.huntHours]);
+
+	console.log(antdForm.getFieldsValue());
 
 	return (
 		<Background>
@@ -62,23 +71,23 @@ function App() {
 					onChange={(e: any) => onChange(e.nativeEvent.target)}
 					style={{ maxWidth: 600 }}
 					labelAlign="left"
+					validateTrigger="onBlur"
 					autoComplete="off"
+					layout="vertical"
+					form={antdForm}
 				>
 					<Space size={64} direction="horizontal">
 						<div>
-							<Typography.Title style={{ textAlign: 'center' }} level={3}>
-								Solo
-							</Typography.Title>
 							<Form.Item label="Raw XP/h">
-								<Input name="rawXpSoloPerHour" type="outline" />
+								<Input name="rawXpSoloPerHour" addonBefore="Solo" />
 							</Form.Item>
-
 							<Form.Item
 								label="Horas de hunt?"
+								name="huntHours"
+								style={{ marginBottom: '4rem' }}
 								tooltip={
 									<>
-										Preencha aqui quantas horas pretende caçar por dia.{' '}
-										<br />
+										Preencha aqui quantas horas pretende caçar por dia. <br />
 										<br />{' '}
 										<Typography.Text type="warning">
 											Independente se for solo ou em party
@@ -89,15 +98,39 @@ function App() {
 								<Input name="huntHours" />
 							</Form.Item>
 						</div>
+
 						<div>
-							<Typography.Title style={{ textAlign: 'center' }} level={3}>
-								Party
-							</Typography.Title>
 							<Form.Item label="Raw XP/h">
-								<Input name="rawXpPartyPerHour" />
+								<Input name="rawXpPartyPerHour" addonBefore="Party" />
 							</Form.Item>
+
 							<Form.Item
 								label="Horas stamina verde?"
+								name="bonusHours"
+								style={{ marginBottom: '4rem' }}
+								dependencies={["huntHours"]}
+								rules={[
+									{
+										validator: async () => {
+											if (!form.huntHours) {
+												return;
+											}
+
+											const huntHours = +form.huntHours.replaceAll(',', '.');
+											if (isNaN(huntHours)) {
+												return;
+											}
+
+											if (huntHours >= form.bonusHours) {
+												return;
+											}
+
+											throw new Error(
+												'Não pode ser maior que a quantidade de horas de hunt',
+											);
+										},
+									},
+								]}
 								tooltip={
 									<>
 										Preencha aqui quantas horas de stamina verde pretende caçar.
@@ -122,6 +155,19 @@ function App() {
 					<Column dataIndex="diff" title="Horas a mais"></Column>
 					<Column dataIndex="party" title="XP Party" render={render}></Column>
 				</Table>
+
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'flex-end',
+						width: '100%',
+						marginTop: '1.5rem',
+					}}
+				>
+					<Button type="primary" onClick={() => antdForm.resetFields()}>
+						Reset
+					</Button>
+				</div>
 			</Card>
 		</Background>
 	);
