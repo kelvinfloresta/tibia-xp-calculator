@@ -12,7 +12,7 @@ import Space from 'antd/es/space';
 import styled from 'styled-components';
 
 import { HuntCalculator } from './logic/HuntCalculator';
-
+import { TimePicker } from 'antd';
 
 const Background = styled.div`
 	padding-top: 10vh;
@@ -31,14 +31,20 @@ function render(e: any) {
 	return e + ' kk';
 }
 
+function toHours(timeField: any): number {
+	if (!timeField) {
+		return 0;
+	}
+
+	return timeField.hour() + timeField.minute() / 60;
+}
+
 function App() {
 	const [form, setForm] = useState<any>({});
 	const [calculator, setCalculator] = useState<HuntCalculator | null>(null);
 	const [antdForm] = useForm();
 
 	useEffect(() => {
-		console.log(form);
-
 		antdForm.setFieldsValue(form);
 	}, [antdForm, form]);
 
@@ -50,17 +56,24 @@ function App() {
 		setCalculator(calculator);
 	}, [form.rawXpPartyPerHour, form.rawXpSoloPerHour]);
 
-	function onChange({ name, value }: { name: string; value: string }) {
+	function onChange({ name, value }: { name: string; value: any }) {
+		if (!name || !value) {
+			return
+		}
+
 		const newForm = { ...form, [name]: value };
 		setForm(newForm);
 	}
 
 	const result = useMemo(() => {
+		const huntHours = toHours(form.huntHours);
+		const bonusHours = toHours(form.bonusHours);
+
 		const result = calculator?.calculate({
-			hoursSolo: form.huntHours?.replaceAll(',', '.'),
-			hoursParty: form.huntHours?.replaceAll(',', '.'),
-			bonusHoursParty: form.bonusHours?.replaceAll(',', '.') || 0,
-			bonusHoursSolo: form.bonusHours?.replaceAll(',', '.') || 0,
+			hoursSolo: huntHours,
+			hoursParty: huntHours,
+			bonusHoursParty: bonusHours,
+			bonusHoursSolo: bonusHours,
 		});
 
 		return result || {};
@@ -80,7 +93,7 @@ function App() {
 				>
 					<Space size={64} direction="horizontal">
 						<div>
-							<Form.Item label="Raw XP/h">
+							<Form.Item label="Raw XP/h" name="rawXpSoloPerHour">
 								<Input name="rawXpSoloPerHour" addonBefore="Solo" />
 							</Form.Item>
 							<Form.Item
@@ -97,12 +110,20 @@ function App() {
 									</>
 								}
 							>
-								<Input name="huntHours" />
+								<TimePicker
+								changeOnBlur
+								inputReadOnly
+									onSelect={value => onChange({ name: 'huntHours', value })}
+									placeholder=""
+									showNow={false}
+									format="HH:mm"
+									name="huntHours"
+								/>
 							</Form.Item>
 						</div>
 
 						<div>
-							<Form.Item label="Raw XP/h">
+							<Form.Item label="Raw XP/h" name="rawXpPartyPerHour">
 								<Input name="rawXpPartyPerHour" addonBefore="Party" />
 							</Form.Item>
 
@@ -110,7 +131,7 @@ function App() {
 								label="Horas stamina verde?"
 								name="bonusHours"
 								style={{ marginBottom: '4rem' }}
-								dependencies={["huntHours"]}
+								dependencies={['huntHours']}
 								rules={[
 									{
 										validator: async () => {
@@ -118,13 +139,7 @@ function App() {
 												return;
 											}
 
-											const huntHours = +form.huntHours.replaceAll(',', '.');
-											if (isNaN(huntHours)) {
-												return;
-											}
-
-											const bonusHours = +form.huntHours.replaceAll(',', '.');
-											if (huntHours >= bonusHours) {
+											if (!form.huntHours.isBefore(form.bonusHours)) {
 												return;
 											}
 
@@ -147,7 +162,14 @@ function App() {
 									</>
 								}
 							>
-								<Input name="bonusHours" />
+								<TimePicker
+								changeOnBlur
+								inputReadOnly
+									onSelect={value => onChange({ name: 'bonusHours', value })}
+									placeholder=""
+									showNow={false}
+									format="HH:mm"
+								/>
 							</Form.Item>
 						</div>
 					</Space>
@@ -167,7 +189,10 @@ function App() {
 						marginTop: '1.5rem',
 					}}
 				>
-					<Button type="primary" onClick={() => antdForm.resetFields()}>
+					<Button type="primary" onClick={() => {
+						antdForm.resetFields()
+						setForm({})
+					}}>
 						Reset
 					</Button>
 				</div>
