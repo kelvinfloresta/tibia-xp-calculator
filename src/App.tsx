@@ -31,7 +31,10 @@ function App() {
 	const [calculator, setCalculator] = useState<HuntCalculator | null>(null);
 
 	useEffect(() => {
-		const calculator = new HuntCalculator(form.rawXpPartyPerHour, form.rawXpSoloPerHour);
+		const calculator = new HuntCalculator(
+			form.rawXpPartyPerHour,
+			form.rawXpSoloPerHour,
+		);
 		setCalculator(calculator);
 	}, [form.rawXpPartyPerHour, form.rawXpSoloPerHour]);
 
@@ -66,7 +69,19 @@ function App() {
 								<Input name="rawXpSoloPerHour" type="outline" />
 							</Form.Item>
 
-							<Form.Item label="Horas de hunt?">
+							<Form.Item
+								label="Horas de hunt?"
+								tooltip={
+									<>
+										Preencha aqui quantas horas pretende caçar por dia todo.{' '}
+										<br />
+										<br />{' '}
+										<Typography.Text type="warning">
+											Independente se for solo ou em party
+										</Typography.Text>
+									</>
+								}
+							>
 								<Input name="huntHours" />
 							</Form.Item>
 						</div>
@@ -77,8 +92,21 @@ function App() {
 							<Form.Item label="Raw XP/h">
 								<Input name="rawXpPartyPerHour" />
 							</Form.Item>
-
-							<Form.Item label="Horas stamina verde?">
+							<Form.Item
+								label="Horas stamina verde?"
+								tooltip={
+									<>
+										Preencha aqui quantas horas de stamina pretende caçar.
+										<br /> <br />
+										Ex: caso tenha{' '}
+										<Typography.Text type="warning">
+											42 horas de stamina
+										</Typography.Text>
+										, preencha com o valor{' '}
+										<Typography.Text type="warning">3</Typography.Text>
+									</>
+								}
+							>
 								<Input name="bonusHours" />
 							</Form.Item>
 						</div>
