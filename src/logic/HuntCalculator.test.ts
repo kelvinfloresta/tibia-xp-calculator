@@ -1,12 +1,12 @@
-const { HuntCalculator } = require('./HuntCalculator')
+import { HuntCalculator } from './HuntCalculator'
 
 describe('HuntCalculator', () => {
   describe('Solo Hunt', () => {
     it('should calculate', () => {
-      const calculator = new HuntCalculator({
-        rawXpSoloPerHour: 5,
-        rawXpPartyPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        5,
+        0
+      )
 
       const result = calculator.calculate({
         hoursSolo: 1,
@@ -22,10 +22,10 @@ describe('HuntCalculator', () => {
     })
 
     it('should calculate with bonus', () => {
-      const calculator = new HuntCalculator({
-        rawXpSoloPerHour: 5,
-        rawXpPartyPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        5,
+        0
+      )
 
       const result = calculator.calculate({
         hoursSolo: 1,
@@ -41,10 +41,10 @@ describe('HuntCalculator', () => {
     })
 
     it('should calculate when have a mix with bonus and no bonus', () => {
-      const calculator = new HuntCalculator({
-        rawXpSoloPerHour: 5,
-        rawXpPartyPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        5,
+        0
+      )
 
       const result = calculator.calculate({
         hoursSolo: 2,
@@ -61,10 +61,10 @@ describe('HuntCalculator', () => {
 
   describe('Party Hunt', () => {
     it('should calculate', () => {
-      const calculator = new HuntCalculator({
-        rawXpPartyPerHour: 9,
-        rawXpSoloPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        9,
+        0
+      )
 
       const result = calculator.calculate({
         hoursParty: 1,
@@ -80,10 +80,10 @@ describe('HuntCalculator', () => {
     })
 
     it('should calculate with bonus', () => {
-      const calculator = new HuntCalculator({
-        rawXpPartyPerHour: 9,
-        rawXpSoloPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        9,
+        0
+      )
 
       const result = calculator.calculate({
         hoursParty: 1,
@@ -99,10 +99,10 @@ describe('HuntCalculator', () => {
     })
 
     it('should calculate when have a mix with bonus and no bonus', () => {
-      const calculator = new HuntCalculator({
-        rawXpPartyPerHour: 9,
-        rawXpSoloPerHour: 0
-      })
+      const calculator = new HuntCalculator(
+        9,
+        0
+      )
 
       const result = calculator.calculate({
         hoursParty: 2,
