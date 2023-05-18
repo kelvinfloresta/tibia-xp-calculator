@@ -57,10 +57,6 @@ function App() {
 	}, [form.rawXpPartyPerHour, form.rawXpSoloPerHour]);
 
 	function onChange({ name, value }: { name: string; value: any }) {
-		if (!name || !value) {
-			return
-		}
-
 		const newForm = { ...form, [name]: value };
 		setForm(newForm);
 	}
@@ -86,7 +82,6 @@ function App() {
 					onChange={(e: any) => onChange(e.nativeEvent.target)}
 					style={{ maxWidth: 600 }}
 					labelAlign="left"
-					validateTrigger="onBlur"
 					autoComplete="off"
 					layout="vertical"
 					form={antdForm}
@@ -111,9 +106,9 @@ function App() {
 								}
 							>
 								<TimePicker
-								changeOnBlur
-								inputReadOnly
-									onSelect={value => onChange({ name: 'huntHours', value })}
+									changeOnBlur
+									inputReadOnly
+									onChange={value => onChange({ name: 'huntHours', value })}
 									placeholder=""
 									showNow={false}
 									format="HH:mm"
@@ -129,7 +124,7 @@ function App() {
 
 							<Form.Item
 								label="Horas stamina verde?"
-								name="bonusHours"
+								name="bonusHours"	
 								style={{ marginBottom: '4rem' }}
 								dependencies={['huntHours']}
 								rules={[
@@ -163,9 +158,9 @@ function App() {
 								}
 							>
 								<TimePicker
-								changeOnBlur
-								inputReadOnly
-									onSelect={value => onChange({ name: 'bonusHours', value })}
+									changeOnBlur
+									inputReadOnly
+									onChange={value => onChange({ name: 'bonusHours', value })}
 									placeholder=""
 									showNow={false}
 									format="HH:mm"
@@ -189,10 +184,13 @@ function App() {
 						marginTop: '1.5rem',
 					}}
 				>
-					<Button type="primary" onClick={() => {
-						antdForm.resetFields()
-						setForm({})
-					}}>
+					<Button
+						type="primary"
+						onClick={() => {
+							antdForm.resetFields();
+							setForm({});
+						}}
+					>
 						Reset
 					</Button>
 				</div>
