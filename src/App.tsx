@@ -77,7 +77,7 @@ function App() {
 								label="Horas de hunt?"
 								tooltip={
 									<>
-										Preencha aqui quantas horas pretende caçar por dia todo.{' '}
+										Preencha aqui quantas horas pretende caçar por dia.{' '}
 										<br />
 										<br />{' '}
 										<Typography.Text type="warning">
