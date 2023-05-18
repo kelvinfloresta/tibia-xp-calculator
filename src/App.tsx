@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Card from 'antd/lib/card';
 import Input from 'antd/lib/input';
@@ -32,8 +32,8 @@ function App() {
 
 	useEffect(() => {
 		const calculator = new HuntCalculator(
-			form.rawXpPartyPerHour,
-			form.rawXpSoloPerHour,
+			form.rawXpPartyPerHour?.replaceAll(",", "."),
+			form.rawXpSoloPerHour?.replaceAll(",", "."),
 		);
 		setCalculator(calculator);
 	}, [form.rawXpPartyPerHour, form.rawXpSoloPerHour]);
@@ -43,13 +43,17 @@ function App() {
 		setForm(newForm);
 	}
 
-	const result =
-		calculator?.calculate({
-			hoursSolo: form.huntHours,
-			hoursParty: form.huntHours,
-			bonusHoursParty: form.bonusHours || 0,
-			bonusHoursSolo: form.bonusHours || 0,
-		}) || {};
+
+	const result = useMemo(() => {
+		const result = calculator?.calculate({
+			hoursSolo: form.huntHours?.replaceAll(",", "."),
+			hoursParty: form.huntHours?.replaceAll(",", "."),
+			bonusHoursParty: form.bonusHours?.replaceAll(",", ".") || 0,
+			bonusHoursSolo: form.bonusHours?.replaceAll(",", ".") || 0,
+		});
+
+		return result || {}
+	}, [calculator, form.bonusHours, form.huntHours])
 
 	return (
 		<Background>
