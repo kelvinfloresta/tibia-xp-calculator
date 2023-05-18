@@ -17,12 +17,16 @@ import { HuntCalculator } from './logic/HuntCalculator';
 const { Panel } = Collapse;
 
 const Background = styled.div`
-	padding-top: 10vh;
+	padding-top: 2.5vw;
 	margin: 0 auto;
 	height: 100vh;
 	box-sizing: border-box;
 	width: 100%;
 	background-color: #dcdcdc;
+
+	@media (min-width: 720px) {
+		padding-top: 10vh;
+	}
 `;
 
 const CustomCollapse = styled(Collapse)`
@@ -40,6 +44,7 @@ const Footer = styled(Card)`
 
 	.ant-card-body {
 		display: flex;
+		flex-wrap: wrap;
 
 		a {
 			text-align: center;
@@ -58,6 +63,14 @@ const Footer = styled(Card)`
 		}
 	}
 `;
+
+const CardResponsive = styled(Card)`
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: 600px;
+	width: 95vw;
+
+`
 
 function render(e: any) {
 	if (!e || isNaN(e)) {
@@ -138,7 +151,7 @@ function App() {
 	);
 	return (
 		<Background>
-			<Card style={{ maxWidth: 600, margin: '0 auto' }}>
+			<CardResponsive bordered={false}> 
 				<CustomCollapse bordered={false}>
 					<Panel header="O que é isso?" key="1">{explain}</Panel>
 				</CustomCollapse>
@@ -151,7 +164,7 @@ function App() {
 					layout="vertical"
 					form={antdForm}
 				>
-					<Space size={64} direction="horizontal">
+					<Space size={32} direction="horizontal">
 						<div>
 							<Form.Item label="Raw XP/h" name="rawXpSoloPerHour">
 								<Input name="rawXpSoloPerHour" addonBefore="Solo" inputMode='numeric' />
@@ -259,7 +272,7 @@ function App() {
 						Reset
 					</Button>
 				</div>
-			</Card>
+			</CardResponsive>
 			<Footer>
 				<a
 					href="https://www.twitch.tv/andergaelbriel"
@@ -270,7 +283,7 @@ function App() {
 					<img src="/twitch.svg" alt="Twitch do Gaelbriel" />
 				</a>
 
-				{[1, 2, 3, 4].map(() => (
+				{[1, 2].map(() => (
 					<a
 						href="https://wa.me/+5521983162465"
 						target="_blank"
