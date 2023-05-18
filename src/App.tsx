@@ -8,10 +8,13 @@ import Column from 'antd/es/table/Column';
 import Button from 'antd/es/button';
 import Table from 'antd/es/table';
 import Space from 'antd/es/space';
+import TimePicker from 'antd/es/time-picker';
+import Collapse from 'antd/es/collapse';
 import styled from 'styled-components';
 
 import { HuntCalculator } from './logic/HuntCalculator';
-import { TimePicker } from 'antd';
+
+const { Panel } = Collapse;
 
 const Background = styled.div`
 	padding-top: 10vh;
@@ -21,6 +24,14 @@ const Background = styled.div`
 	width: 100%;
 	background-color: #dcdcdc;
 `;
+
+const CustomCollapse = styled(Collapse)`
+	background-color: white;
+	margin-bottom: 1rem;
+	.ant-collapse-header{
+		padding: 0 !important;
+	}
+`
 
 const Footer = styled(Card)`
 	width: fit-content;
@@ -99,10 +110,39 @@ function App() {
 
 		return result || {};
 	}, [calculator, form.bonusHours, form.huntHours]);
+	const explain = (
+		<>
+			<Typography.Title level={5}>Visão geral:</Typography.Title>
+			<Typography.Paragraph>
+			Normalmente sempre compensa caçar em time para obter o máximo de
+			experiência, mas nem sempre é possível encontrar um time. Existem outros
+			motivos que atrapalham a sua hunt como: <Typography.Text strong type="warning">atrasos, faltas e locais já
+			ocupados por outros jogadores</Typography.Text>.
+			</Typography.Paragraph>
 
+
+			<Typography.Title level={5}>Solução:</Typography.Title>
+			<Typography.Paragraph>
+			Criei esta ferramenta para me ajudar (e a comunidade) a calcular{' '}
+			<Typography.Text type="warning" strong>
+				quanto tempo a mais devo caçar para compensar e obter os mesmos
+				resultado
+			</Typography.Text>
+			</Typography.Paragraph>
+
+			<Typography.Title level={5}>Novidades:</Typography.Title>
+			<Typography.Paragraph>
+			Em breve trarei mais funcionalidades que utilizo e análises para melhorar a eficiência do personagem
+			</Typography.Paragraph>
+		</>
+	);
 	return (
 		<Background>
 			<Card style={{ maxWidth: 600, margin: '0 auto' }}>
+				<CustomCollapse bordered={false}>
+					<Panel header="O que é isso?" key="1">{explain}</Panel>
+				</CustomCollapse>
+
 				<Form
 					onChange={(e: any) => onChange(e.nativeEvent.target)}
 					style={{ maxWidth: 600 }}
