@@ -1,5 +1,4 @@
-// const { printTable } = require('console-table-printer')
-const { format } = require('mathjs')
+import { format } from 'mathjs'
 
 export class HuntCalculator {
   xpMultiplier = 1
