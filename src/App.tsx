@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-
 import Card from 'antd/es/card';
 import Input from 'antd/es/input';
 import Form from 'antd/es/form';
@@ -21,6 +20,32 @@ const Background = styled.div`
 	box-sizing: border-box;
 	width: 100%;
 	background-color: #dcdcdc;
+`;
+
+const Footer = styled(Card)`
+	width: fit-content;
+	margin: 0 auto;
+	margin-top: 1rem;
+
+	.ant-card-body {
+		display: flex;
+
+		a {
+			text-align: center;
+			vertical-align: bottom;
+			width: 64px;
+			height: 64px;
+			display: inline-block;
+
+			&:not(:last-child) {
+				margin-right: 1.5rem;
+			}
+		}
+
+		a.only-text {
+			margin-top: 0.5rem;
+		}
+	}
 `;
 
 function render(e: any) {
@@ -124,7 +149,7 @@ function App() {
 
 							<Form.Item
 								label="Horas stamina verde?"
-								name="bonusHours"	
+								name="bonusHours"
 								style={{ marginBottom: '4rem' }}
 								dependencies={['huntHours']}
 								rules={[
@@ -195,6 +220,27 @@ function App() {
 					</Button>
 				</div>
 			</Card>
+			<Footer>
+				<a
+					href="https://www.twitch.tv/andergaelbriel"
+					title="Twitch do Gaelbriel"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<img src="/twitch.svg" alt="Twitch do Gaelbriel" />
+				</a>
+
+				{[1, 2, 3, 4].map(() => (
+					<a
+						href="https://wa.me/+5521983162465"
+						target="_blank"
+						rel="noreferrer"
+						className="only-text"
+					>
+						Anuncie aqui
+					</a>
+				))}
+			</Footer>
 		</Background>
 	);
 }
