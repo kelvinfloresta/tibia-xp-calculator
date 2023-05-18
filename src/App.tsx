@@ -1,14 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import Card from 'antd/lib/card';
-import Input from 'antd/lib/input';
-import Form from 'antd/lib/form';
-
-import styled from 'styled-components';
-import { Button, Space, Table, Typography } from 'antd';
-import { HuntCalculator } from './logic/HuntCalculator';
+import Card from 'antd/es/card';
+import Input from 'antd/es/input';
+import Form from 'antd/es/form';
+import { useForm } from 'antd/es/form/Form';
+import Typography from 'antd/es/typography';
 import Column from 'antd/es/table/Column';
-import { useForm } from 'antd/lib/form/Form';
+import Button from 'antd/es/button';
+import Table from 'antd/es/table';
+import Space from 'antd/es/space';
+import styled from 'styled-components';
+
+import { HuntCalculator } from './logic/HuntCalculator';
+
 
 const Background = styled.div`
 	padding-top: 10vh;
@@ -61,8 +65,6 @@ function App() {
 
 		return result || {};
 	}, [calculator, form.bonusHours, form.huntHours]);
-
-	console.log(antdForm.getFieldsValue());
 
 	return (
 		<Background>
