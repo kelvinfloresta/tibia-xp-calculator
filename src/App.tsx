@@ -18,15 +18,15 @@ import { HuntCalculator } from './logic/HuntCalculator';
 const { Panel } = Collapse;
 
 const Background = styled.div`
-	padding-top: 2.5vw;
+	padding-top: 10vh;
 	margin: 0 auto;
 	height: 100vh;
 	box-sizing: border-box;
 	width: 100%;
 	background-color: #dcdcdc;
 
-	@media (min-width: 720px) {
-		padding-top: 10vh;
+	@media (max-width: 720px) {
+		padding-top: 0;
 	}
 `;
 
@@ -70,6 +70,16 @@ const CardResponsive = styled(Card)`
 	margin: 0 auto;
 	max-width: 600px;
 	width: 95vw;
+	border-radius: 0;
+
+	@media (max-width: 720px) {
+		margin: 0;
+		width: 100%;
+		max-width: unset;
+		.ant-card-body {
+			padding: 1rem;
+		}
+	}
 `;
 
 function render(e: any) {
@@ -166,15 +176,19 @@ function App() {
 				<Form
 					onChange={(e: any) => onChange(e.nativeEvent.target)}
 					style={{ maxWidth: 600 }}
-					wrapperCol={{ span: 16 }}
+					wrapperCol={{ span: 12 }}
 					labelAlign="left"
 					autoComplete="off"
 					layout="vertical"
 					form={antdForm}
 				>
-					<Space direction="horizontal">
+					<Space size="middle" direction="horizontal">
 						<div>
-							<Form.Item label="Raw XP/h" name="rawXpSoloPerHour">
+							<Form.Item
+								label="Raw XP/h"
+								name="rawXpSoloPerHour"
+								wrapperCol={{ span: 12 }}
+							>
 								<Input
 									name="rawXpSoloPerHour"
 									addonBefore="Solo"
@@ -208,7 +222,11 @@ function App() {
 						</div>
 
 						<div>
-							<Form.Item label="Raw XP/h" name="rawXpPartyPerHour">
+							<Form.Item
+								label="Raw XP/h"
+								name="rawXpPartyPerHour"
+								wrapperCol={{ span: 12 }}
+							>
 								<Input
 									name="rawXpPartyPerHour"
 									addonBefore="Party"
@@ -258,7 +276,12 @@ function App() {
 									placeholder=""
 									showNow={false}
 									hideDisabledOptions
-									disabledTime={time => ({ disabledHours: () => [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]})}
+									disabledTime={time => ({
+										disabledHours: () => [
+											4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+											20, 21, 22, 23,
+										],
+									})}
 									format="HH:mm"
 								/>
 							</Form.Item>
@@ -266,7 +289,11 @@ function App() {
 					</Space>
 
 					<div style={{ width: '100%' }}>
-						<Form.Item label="Evento?" name="bonusEvent">
+						<Form.Item
+							label="Evento?"
+							name="bonusEvent"
+							wrapperCol={{ span: 24 }}
+						>
 							<Radio.Group name="bonusEvent">
 								<Radio value="1.5">Bonus XP (50%)</Radio>
 								<Radio value="2">Double XP (100%)</Radio>
