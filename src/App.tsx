@@ -10,6 +10,7 @@ import Table from 'antd/es/table';
 import Space from 'antd/es/space';
 import TimePicker from 'antd/es/time-picker';
 import Collapse from 'antd/es/collapse';
+import Radio from 'antd/es/radio';
 import styled from 'styled-components';
 
 import { HuntCalculator } from './logic/HuntCalculator';
@@ -116,13 +117,15 @@ function App() {
 
 		const result = calculator?.calculate({
 			hoursSolo: huntHours,
-			hoursParty: huntHours,
+			hoursParty: huntHours,	
 			bonusHoursParty: bonusHours,
 			bonusHoursSolo: bonusHours,
+			bonusEvent: form.bonusEvent || 1,
 		});
 
 		return result || {};
-	}, [calculator, form.bonusHours, form.huntHours]);
+	}, [calculator, form.bonusHours, form.huntHours, form.bonusEvent]);
+
 	const explain = (
 		<>
 			<Typography.Title level={5}>Visão geral:</Typography.Title>
@@ -172,7 +175,6 @@ function App() {
 							<Form.Item
 								label="Horas de hunt?"
 								name="huntHours"
-								style={{ marginBottom: '4rem' }}
 								tooltip={
 									<>
 										Preencha aqui quantas horas pretende caçar por dia. <br />
@@ -203,7 +205,6 @@ function App() {
 							<Form.Item
 								label="Horas stamina verde?"
 								name="bonusHours"
-								style={{ marginBottom: '4rem' }}
 								dependencies={['huntHours']}
 								rules={[
 									{
@@ -246,6 +247,16 @@ function App() {
 							</Form.Item>
 						</div>
 					</Space>
+
+					<div style={{width: "100%"}}>
+						<Form.Item label="Evento?" name="bonusEvent">
+						<Radio.Group name='bonusEvent'>
+							<Radio value="1.5">Bonus XP (50%)</Radio>
+							<Radio value="2">Double XP (100%)</Radio>
+							<Radio value="1">Sem evento</Radio>
+						</Radio.Group>
+						</Form.Item>
+					</div>
 				</Form>
 
 				<Table dataSource={[result]} pagination={false}>

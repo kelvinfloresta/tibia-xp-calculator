@@ -8,7 +8,7 @@ export class HuntCalculator {
     this.calculate = this.calculate.bind(this)
   }
 
- private calculateFullXP ({ rawXpPerhour, huntingHours, bonusHours }: any) {
+ private calculateFullXP ({ rawXpPerhour, huntingHours, bonusHours, bonusEvent }: any) {
     if (huntingHours === 0) {
       return { normal: 0, bonus: 0, total: 0 }
     }
@@ -17,13 +17,13 @@ export class HuntCalculator {
     const normal = this.calculateXP({
       huntingHours: normalHours,
       rawXpPerhour,
-      multiplier: this.xpMultiplier
+      multiplier: this.xpMultiplier * bonusEvent
     })
 
     const bonus = this.calculateXP({
       huntingHours: bonusHours,
       rawXpPerhour,
-      multiplier: this.xpMultiplier * this.bonusXpMultiplier
+      multiplier: this.xpMultiplier * this.bonusXpMultiplier * bonusEvent
     })
 
     const total = normal + bonus
@@ -61,17 +61,19 @@ export class HuntCalculator {
     console.log('\n\n')
   }
 
-  public calculate ({ hoursSolo, hoursParty, bonusHoursParty, bonusHoursSolo }: any) {
+  public calculate ({ hoursSolo, hoursParty, bonusHoursParty, bonusHoursSolo, bonusEvent }: any) {
     const { total: soloTotal } = this.calculateFullXP({
       rawXpPerhour: this.rawXpSoloPerHour,
       bonusHours: bonusHoursSolo,
-      huntingHours: hoursSolo
+      huntingHours: hoursSolo,
+      bonusEvent,
     })
 
     const { total: partyTotal } = this.calculateFullXP({
       rawXpPerhour: this.rawXpPartyPerHour,
       bonusHours: bonusHoursParty,
-      huntingHours: hoursParty
+      huntingHours: hoursParty,
+      bonusEvent,
     })
 
     const description = `${hoursSolo} horas solo + ${hoursParty} horas PT`
