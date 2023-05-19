@@ -293,12 +293,12 @@ function App() {
 				</a>
 
 				<a
-					href="https://www.twitch.tv/casalhokage"
-					title="Casal Hokage"
+					href="https://www.twitch.tv/dioldtimes"
+					title="Twitch do DiOldTimes"
 					target="_blank"
 					rel="noreferrer"
 				>
-					<img src="/naruto.svg" alt="Casal Hokage" />
+					<img src="/golden-doll.gif" alt="DiOldTimes" width={54} style={{marginTop: 3}} />
 				</a>
 				
 			</Footer>
