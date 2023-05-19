@@ -33,10 +33,10 @@ const Background = styled.div`
 const CustomCollapse = styled(Collapse)`
 	background-color: white;
 	margin-bottom: 1rem;
-	.ant-collapse-header{
+	.ant-collapse-header {
 		padding: 0 !important;
 	}
-`
+`;
 
 const Footer = styled(Card)`
 	width: fit-content;
@@ -70,8 +70,7 @@ const CardResponsive = styled(Card)`
 	margin: 0 auto;
 	max-width: 600px;
 	width: 95vw;
-
-`
+`;
 
 function render(e: any) {
 	if (!e || isNaN(e)) {
@@ -117,7 +116,7 @@ function App() {
 
 		const result = calculator?.calculate({
 			hoursSolo: huntHours,
-			hoursParty: huntHours,	
+			hoursParty: huntHours,
 			bonusHoursParty: bonusHours,
 			bonusHoursSolo: bonusHours,
 			bonusEvent: form.bonusEvent || 1,
@@ -130,47 +129,58 @@ function App() {
 		<>
 			<Typography.Title level={5}>Visão geral:</Typography.Title>
 			<Typography.Paragraph>
-			Normalmente sempre compensa caçar em time para obter o máximo de
-			experiência, mas nem sempre é possível encontrar um time. Existem outros
-			motivos que atrapalham a sua hunt como: <Typography.Text strong type="warning">atrasos, faltas e locais já
-			ocupados por outros jogadores</Typography.Text>.
+				Normalmente sempre compensa caçar em time para obter o máximo de
+				experiência, mas nem sempre é possível encontrar um time. Existem outros
+				motivos que atrapalham a sua hunt como:{' '}
+				<Typography.Text strong type="warning">
+					atrasos, faltas e locais já ocupados por outros jogadores
+				</Typography.Text>
+				.
 			</Typography.Paragraph>
-
 
 			<Typography.Title level={5}>Solução:</Typography.Title>
 			<Typography.Paragraph>
-			Criei esta ferramenta para me ajudar (e a comunidade) a calcular{' '}
-			<Typography.Text type="warning" strong>
-				quanto tempo a mais devo caçar para compensar e obter os mesmos
-				resultado
-			</Typography.Text>
+				Criei esta ferramenta para me ajudar (e a comunidade) a calcular{' '}
+				<Typography.Text type="warning" strong>
+					quanto tempo a mais devo caçar para compensar e obter os mesmos
+					resultado
+				</Typography.Text>
 			</Typography.Paragraph>
 
 			<Typography.Title level={5}>Novidades:</Typography.Title>
 			<Typography.Paragraph>
-			Em breve trarei mais funcionalidades que utilizo e análises para melhorar a eficiência do personagem
+				Em breve trarei mais funcionalidades que utilizo e análises para
+				melhorar a eficiência do personagem
 			</Typography.Paragraph>
 		</>
 	);
 	return (
 		<Background>
-			<CardResponsive bordered={false}> 
+			<CardResponsive bordered={false}>
 				<CustomCollapse bordered={false}>
-					<Panel header="O que é isso?" key="1">{explain}</Panel>
+					<Panel header="O que é isso?" key="1">
+						{explain}
+					</Panel>
 				</CustomCollapse>
 
 				<Form
 					onChange={(e: any) => onChange(e.nativeEvent.target)}
 					style={{ maxWidth: 600 }}
+					wrapperCol={{ span: 16 }}
 					labelAlign="left"
 					autoComplete="off"
 					layout="vertical"
 					form={antdForm}
 				>
-					<Space size={32} direction="horizontal">
+					<Space direction="horizontal">
 						<div>
 							<Form.Item label="Raw XP/h" name="rawXpSoloPerHour">
-								<Input name="rawXpSoloPerHour" addonBefore="Solo" inputMode='numeric' />
+								<Input
+									name="rawXpSoloPerHour"
+									addonBefore="Solo"
+									addonAfter="kk"
+									inputMode="numeric"
+								/>
 							</Form.Item>
 							<Form.Item
 								label="Horas de hunt?"
@@ -199,7 +209,12 @@ function App() {
 
 						<div>
 							<Form.Item label="Raw XP/h" name="rawXpPartyPerHour">
-								<Input name="rawXpPartyPerHour" addonBefore="Party" inputMode='numeric' />
+								<Input
+									name="rawXpPartyPerHour"
+									addonBefore="Party"
+									addonAfter="kk"
+									inputMode="numeric"
+								/>
 							</Form.Item>
 
 							<Form.Item
@@ -242,19 +257,21 @@ function App() {
 									onChange={value => onChange({ name: 'bonusHours', value })}
 									placeholder=""
 									showNow={false}
+									hideDisabledOptions
+									disabledTime={time => ({ disabledHours: () => [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]})}
 									format="HH:mm"
 								/>
 							</Form.Item>
 						</div>
 					</Space>
 
-					<div style={{width: "100%"}}>
+					<div style={{ width: '100%' }}>
 						<Form.Item label="Evento?" name="bonusEvent">
-						<Radio.Group name='bonusEvent'>
-							<Radio value="1.5">Bonus XP (50%)</Radio>
-							<Radio value="2">Double XP (100%)</Radio>
-							<Radio value="1">Sem evento</Radio>
-						</Radio.Group>
+							<Radio.Group name="bonusEvent">
+								<Radio value="1.5">Bonus XP (50%)</Radio>
+								<Radio value="2">Double XP (100%)</Radio>
+								<Radio value="1">Sem evento</Radio>
+							</Radio.Group>
 						</Form.Item>
 					</div>
 				</Form>
@@ -293,7 +310,7 @@ function App() {
 				>
 					<img src="/twitch.svg" alt="Twitch do Gaelbriel" />
 				</a>
-				
+
 				<a
 					href="https://wa.me/+5521983162465"
 					target="_blank"
@@ -309,9 +326,13 @@ function App() {
 					target="_blank"
 					rel="noreferrer"
 				>
-					<img src="/golden-doll.gif" alt="DiOldTimes" width={54} style={{marginTop: 3}} />
+					<img
+						src="/golden-doll.gif"
+						alt="DiOldTimes"
+						width={54}
+						style={{ marginTop: 3 }}
+					/>
 				</a>
-				
 			</Footer>
 		</Background>
 	);
