@@ -282,17 +282,25 @@ function App() {
 				>
 					<img src="/twitch.svg" alt="Twitch do Gaelbriel" />
 				</a>
+				
+				<a
+					href="https://wa.me/+5521983162465"
+					target="_blank"
+					rel="noreferrer"
+					className="only-text"
+				>
+					Anuncie aqui
+				</a>
 
-				{[1, 2].map(() => (
-					<a
-						href="https://wa.me/+5521983162465"
-						target="_blank"
-						rel="noreferrer"
-						className="only-text"
-					>
-						Anuncie aqui
-					</a>
-				))}
+				<a
+					href="https://www.twitch.tv/casalhokage"
+					title="Casal Hokage"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<img src="/naruto.svg" alt="Casal Hokage" />
+				</a>
+				
 			</Footer>
 		</Background>
 	);
