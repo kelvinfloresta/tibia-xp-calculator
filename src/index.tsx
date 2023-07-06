@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Routes } from './Routes';
+import ConfigProvider from 'antd/es/config-provider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+      <ConfigProvider
+    theme={{ token: {
+      fontSize: 16
+    } }}
+  >
+    {Routes}
+  </ConfigProvider>
   </React.StrictMode>
 );
 

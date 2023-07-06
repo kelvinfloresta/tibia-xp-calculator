@@ -1,4 +1,5 @@
 import Card from 'antd/es/card/Card';
+import { Footer as AntdFooter } from 'antd/es/layout/layout';
 import { styled } from 'styled-components';
 
 const StyledFooter = styled(Card)`
@@ -30,6 +31,7 @@ const StyledFooter = styled(Card)`
 
 export function Footer() {
 	return (
+		<AntdFooter>
 		<StyledFooter>
 			<a
 				href="https://www.twitch.tv/andergaelbriel"
@@ -63,5 +65,6 @@ export function Footer() {
 				/>
 			</a>
 		</StyledFooter>
+		</AntdFooter>
 	);
 }

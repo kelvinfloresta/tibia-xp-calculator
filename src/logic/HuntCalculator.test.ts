@@ -1,119 +1,95 @@
-import { HuntCalculator } from './HuntCalculator'
+import { BonusEvent } from './BonusEvent';
+import { HuntCalculator } from './HuntCalculator';
 
 describe('HuntCalculator', () => {
-  describe('Solo Hunt', () => {
-    it('should calculate', () => {
-      const calculator = new HuntCalculator(
-        5,
-        0
-      )
+  it('should calculate', () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 1,
+      staminaBonusHours: 0,
+      bonusEvent: BonusEvent.none,
+    });
 
-      const result = calculator.calculate({
-        hoursSolo: 1,
-        bonusHoursSolo: 0,
-        bonusHoursParty: 0,
-        hoursParty: 0
-      })
+    const expected = 5;
 
-      const expected = 5
+    expect(result.total).toBe(expected);
+  });
 
-      calculator.print([result])
-      expect(result.total).toBe(expected)
-    })
+  it('should calculate with bonus', () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 1,
+      staminaBonusHours: 1,
+      bonusEvent: BonusEvent.none,
+    });
 
-    it('should calculate with bonus', () => {
-      const calculator = new HuntCalculator(
-        5,
-        0
-      )
+    const expected = 7.5;
 
-      const result = calculator.calculate({
-        hoursSolo: 1,
-        bonusHoursSolo: 1,
-        bonusHoursParty: 0,
-        hoursParty: 0
-      })
+    expect(result.total).toBe(expected);
+  });
 
-      const expected = 7.5
+  it(`should calculate with event: ${BonusEvent.half}x`, () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 1,
+      staminaBonusHours: 0,
+      bonusEvent: BonusEvent.half,
+    });
 
-      calculator.print([result])
-      expect(result.total).toBe(expected)
-    })
+    const expected = 7.5;
 
-    it('should calculate when have a mix with bonus and no bonus', () => {
-      const calculator = new HuntCalculator(
-        5,
-        0
-      )
+    expect(result.total).toBe(expected);
+  });
 
-      const result = calculator.calculate({
-        hoursSolo: 2,
-        bonusHoursSolo: 1,
-        bonusHoursParty: 0,
-        hoursParty: 0
-      })
+  it('should calculate when have a mix with stamina bonus and normal stamina', () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 2,
+      staminaBonusHours: 1,
+      bonusEvent: BonusEvent.none,
+    });
 
-      const expected = 12.5
+    const expected = 12.5;
 
-      expect(result.total).toBe(expected)
-    })
-  })
+    expect(result.total).toBe(expected);
+  });
 
-  describe('Party Hunt', () => {
-    it('should calculate', () => {
-      const calculator = new HuntCalculator(
-        9,
-        0
-      )
+  it(`should calculate when have a mix with stamina bonus, normal stamina and event: ${BonusEvent.half}x`, () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 1,
+      staminaBonusHours: 1,
+      bonusEvent: BonusEvent.half,
+    });
 
-      const result = calculator.calculate({
-        hoursParty: 1,
-        bonusHoursParty: 0,
-        bonusHoursSolo: 0,
-        hoursSolo: 0
-      })
+    const expected = 11.25;
 
-      const expected = 9
+    expect(result.total).toBe(expected);
+  });
 
-      calculator.print([result])
-      expect(result.total).toBe(expected)
-    })
+  it(`should calculate when have a mix with stamina bonus, normal stamina and event: ${BonusEvent.double}x`, () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 1,
+      staminaBonusHours: 1,
+      bonusEvent: BonusEvent.double,
+    });
 
-    it('should calculate with bonus', () => {
-      const calculator = new HuntCalculator(
-        9,
-        0
-      )
+    const expected = 15;
 
-      const result = calculator.calculate({
-        hoursParty: 1,
-        bonusHoursParty: 1,
-        bonusHoursSolo: 0,
-        hoursSolo: 0
-      })
+    expect(result.total).toBe(expected);
+  });
 
-      const expected = 13.5
+  it(`should calculate when have more hours than stamina bonus and have event: ${BonusEvent.double}x`, () => {
+    const result = HuntCalculator.calculate({
+      rawXpPerHour: 5,
+      huntingHours: 2,
+      staminaBonusHours: 1,
+      bonusEvent: BonusEvent.double,
+    });
 
-      calculator.print([result])
-      expect(result.total).toBe(expected)
-    })
+    const expected = 25;
 
-    it('should calculate when have a mix with bonus and no bonus', () => {
-      const calculator = new HuntCalculator(
-        9,
-        0
-      )
-
-      const result = calculator.calculate({
-        hoursParty: 2,
-        bonusHoursParty: 1,
-        bonusHoursSolo: 0,
-        hoursSolo: 0
-      })
-
-      const expected = 22.5
-
-      expect(result.total).toBe(expected)
-    })
-  })
-})
+    expect(result.total).toBe(expected);
+  });
+});
