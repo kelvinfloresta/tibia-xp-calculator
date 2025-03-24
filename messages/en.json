@@ -1,0 +1,73 @@
+{
+  "HomePage": {
+    "title": "Home Page",
+    "description": "Welcome to Tibia Market, the best place to buy and sell Tibia Coins.",
+    "buyCoins": "Buy Tibia Coins",
+    "sellCoins": "Sell Tibia Coins",
+    "offers": "Offers",
+    "dpsCalculator": "DPS Calculator"
+  },
+  "DpsCalculator": {
+    "title": "DPS Calculator",
+    "description": "Calculate the damage per second of your weapon.",
+    "selectHunt": "Select a hunt",
+    "proportion": "Proportion",
+    "whenYouKill": "I can kill <monsters></monsters> monsters per lure, so I will receive <xp></xp>",
+    "toAchieve": "I want to achieve <xp></xp> xp/h, so the maximum time between lures should be <time></time> seconds."
+  },
+  "common": {
+    "name": "Name"
+  },
+  "Payment": {
+    "missingParameters": "Missing required parameters",
+    "errorProcessingPayment": "Error processing payment",
+    "paymentSuccessful": "Payment successful!",
+    "paymentStatus": "Payment Status",
+    "thankYou": "Thank you for your purchase. Your transaction has been completed successfully.",
+    "backToOffers": "Back to Offers",
+    "tryAgain": "Please try again or contact support if the problem persists.",
+    "processing": "Processing...",
+    "pay": "Pay"
+  },
+  "Offers": {
+    "title": "Tibia Coins Market",
+    "buy": "Buy",
+    "sell": "Sell",
+    "type": "Type",
+    "quantity": "Quantity",
+    "pricePerCoin": "Price per coin",
+    "totalPrice": "Total price",
+    "createOffer": "Create Offer",
+    "acceptOffer": "Accept Offer",
+    "cancelOffer": "Cancel Offer",
+    "offerDetails": "Offer Details",
+    "paymentMethod": "Payment Method",
+    "currency": "Currency",
+    "status": "Status",
+    "active": "Active",
+    "completed": "Completed",
+    "canceled": "Canceled",
+    "expired": "Expired",
+    "noOffers": "No offers available"
+  },
+  "ApiErrors": {
+    "ERROR_LISTING_OFFERS": "Error listing offers",
+    "ERROR_CREATING_OFFER": "Error creating offer",
+    "METHOD_NOT_ALLOWED": "Method not allowed",
+    "INVALID_ID": "Invalid ID",
+    "OFFER_NOT_FOUND": "Offer not found",
+    "ERROR_FETCHING_OFFER": "Error fetching offer",
+    "ERROR_UPDATING_OFFER": "Error updating offer",
+    "ERROR_DELETING_OFFER": "Error deleting offer",
+    "OFFER_NOT_FOUND_OR_INACTIVE": "Offer not found or not active",
+    "USER_ID_REQUIRED": "User ID is required",
+    "ERROR_CREATING_PAYMENT_INTENT": "Error creating payment intent",
+    "PAYMENT_INTENT_ID_REQUIRED": "Payment intent ID is required",
+    "OFFER_NOT_FOUND_INACTIVE_OR_PAYMENT_FAILED": "Offer not found, not active, or payment was unsuccessful",
+    "CANCELLATION_REASON_REQUIRED": "Cancellation reason is required",
+    "ERROR_CANCELING_OFFER": "Error canceling offer",
+    "WEBHOOK_SIGNATURE_NOT_FOUND": "Webhook signature not found",
+    "ERROR_PROCESSING_WEBHOOK": "Error processing webhook",
+    "MISSING_PARAMETERS": "Required parameters are missing"
+  }
+}

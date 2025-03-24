@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: tibia-xp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: xptibia
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tibia-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PgAdmin (Optional - for database management)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: tibia-xp-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - tibia-network
+    depends_on:
+      - postgres
+
+  # Application (Optional - uncomment if you want to containerize the app)
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: tibia-xp-app
+  #   restart: unless-stopped
+  #   environment:
+  #     NODE_ENV: development
+  #     DATABASE_URL: postgres://postgres:postgres@postgres:5432/xptibia
+  #     # Add other environment variables as needed
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   networks:
+  #     - tibia-network
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   command: sh -c "npm run migrate && npm run dev"
+
+networks:
+  tibia-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:

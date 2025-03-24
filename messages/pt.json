@@ -1,0 +1,73 @@
+{
+  "HomePage": {
+    "title": "Página Inicial",
+    "description": "Bem-vindo ao Tibia Market, o melhor lugar para comprar e vender Tibia Coins.",
+    "buyCoins": "Comprar Tibia Coins",
+    "sellCoins": "Vender Tibia Coins",
+    "offers": "Ofertas",
+    "dpsCalculator": "Calculadora de DPS"
+  },
+  "DpsCalculator": {
+    "title": "Calculadora de DPS",
+    "description": "Calcule o dano por segundo da sua arma.",
+    "selectHunt": "Selecione uma caçada",
+    "proportion": "Proporção",
+    "whenYouKill": "Eu posso matar <monsters></monsters> monstros por lure, então eu receberei <xp></xp>",
+    "toAchieve": "Eu quero alcançar <xp></xp> xp/h, então o tempo máximo entre lures deve ser de <time></time> segundos."
+  },
+  "common": {
+    "name": "Nome"
+  },
+  "Payment": {
+    "missingParameters": "Parâmetros obrigatórios ausentes",
+    "errorProcessingPayment": "Erro ao processar pagamento",
+    "paymentSuccessful": "Pagamento realizado com sucesso!",
+    "paymentStatus": "Status do Pagamento",
+    "thankYou": "Obrigado pela sua compra. Sua transação foi concluída com sucesso.",
+    "backToOffers": "Voltar para Ofertas",
+    "tryAgain": "Por favor, tente novamente ou entre em contato com o suporte se o problema persistir.",
+    "processing": "Processando...",
+    "pay": "Pagar"
+  },
+  "Offers": {
+    "title": "Mercado de Tibia Coins",
+    "buy": "Comprar",
+    "sell": "Vender",
+    "type": "Tipo",
+    "quantity": "Quantidade",
+    "pricePerCoin": "Preço por moeda",
+    "totalPrice": "Preço total",
+    "createOffer": "Criar Oferta",
+    "acceptOffer": "Aceitar Oferta",
+    "cancelOffer": "Cancelar Oferta",
+    "offerDetails": "Detalhes da Oferta",
+    "paymentMethod": "Método de Pagamento",
+    "currency": "Moeda",
+    "status": "Status",
+    "active": "Ativa",
+    "completed": "Concluída",
+    "canceled": "Cancelada",
+    "expired": "Expirada",
+    "noOffers": "Nenhuma oferta disponível"
+  },
+  "ApiErrors": {
+    "ERROR_LISTING_OFFERS": "Erro ao listar ofertas",
+    "ERROR_CREATING_OFFER": "Erro ao criar oferta",
+    "METHOD_NOT_ALLOWED": "Método não permitido",
+    "INVALID_ID": "ID inválido",
+    "OFFER_NOT_FOUND": "Oferta não encontrada",
+    "ERROR_FETCHING_OFFER": "Erro ao buscar oferta",
+    "ERROR_UPDATING_OFFER": "Erro ao atualizar oferta",
+    "ERROR_DELETING_OFFER": "Erro ao deletar oferta",
+    "OFFER_NOT_FOUND_OR_INACTIVE": "Oferta não encontrada ou não está ativa",
+    "USER_ID_REQUIRED": "ID do usuário é obrigatório",
+    "ERROR_CREATING_PAYMENT_INTENT": "Erro ao criar intenção de pagamento",
+    "PAYMENT_INTENT_ID_REQUIRED": "ID da intenção de pagamento é obrigatório",
+    "OFFER_NOT_FOUND_INACTIVE_OR_PAYMENT_FAILED": "Oferta não encontrada, não está ativa, ou pagamento não foi bem-sucedido",
+    "CANCELLATION_REASON_REQUIRED": "Motivo do cancelamento é obrigatório",
+    "ERROR_CANCELING_OFFER": "Erro ao cancelar oferta",
+    "WEBHOOK_SIGNATURE_NOT_FOUND": "Assinatura do webhook não encontrada",
+    "ERROR_PROCESSING_WEBHOOK": "Erro ao processar webhook",
+    "MISSING_PARAMETERS": "Parâmetros obrigatórios ausentes"
+  }
+}

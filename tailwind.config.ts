@@ -10,6 +10,8 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			even: '#1c4587',
+			odd: '#3c78d8',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
