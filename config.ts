@@ -14,7 +14,7 @@ const ConfigSchema = zod.object({
     user: zod.string(),
     password: zod.string(),
     name: zod.string(),
-    port: zod.string(),
+    port: zod.coerce.number(),
   }),
 });
 

@@ -1,15 +1,5 @@
+import { config as appConfig } from "@/config";
 import type { Knex } from "knex";
-
-const appConfig = {
-  env: "development",
-  database: {
-    host: "localhost",
-    user: "postgres",
-    password: "postgres",
-    name: "xptibia",
-    port: 5432,
-  },
-};
 
 const connection: Knex.Config["connection"] = {
   host: appConfig.database.host,
